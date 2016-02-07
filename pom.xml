@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.oberasoftware</groupId>
+        <artifactId>home-maven</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>home-security</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <properties>
+        <obera.base.version>1.1-SNAPSHOT</obera.base.version>
+        <home.sdk.version>1.0-SNAPSHOT</home.sdk.version>
+    </properties>
+
+    <developers>
+        <developer>
+            <name>Renze de Vries</name>
+            <email>renze@oberasoftware.com</email>
+            <organization>Oberasoftware</organization>
+            <organizationUrl>http://www.oberasoftware.com</organizationUrl>
+        </developer>
+    </developers>
+
+    <repositories>
+        <repository>
+            <id>nexus-snapshots</id>
+            <url>http://nexus:8081/content/repositories/snapshots</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>nexus-releases</id>
+            <url>http://nexus:8081/content/repositories/releases</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <url>http://nexus:8081/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>nexus-releases</id>
+            <url>http://nexus:8081/content/repositories/releases</url>
+        </repository>
+    </distributionManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.oberasoftware</groupId>
+            <artifactId>obera-base</artifactId>
+        </dependency>
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- obera deps -->
+            <dependency>
+                <groupId>com.oberasoftware</groupId>
+                <artifactId>home-api</artifactId>
+                <version>${home.sdk.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.oberasoftware</groupId>
+                <artifactId>home-model</artifactId>
+                <version>${home.sdk.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.oberasoftware</groupId>
+                <artifactId>home-util</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.oberasoftware</groupId>
+                <artifactId>security-model</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <modules>
+        <module>security-model</module>
+        <module>security-token-svc</module>
+        <module>security-user-svc</module>
+        <module>security-web</module>
+    </modules>
+</project>
