@@ -1,8 +1,12 @@
 package com.oberasoftware.home.security.model;
 
+import com.oberasoftware.jasdb.api.entitymapper.annotations.JasDBEntity;
+import com.oberasoftware.jasdb.api.entitymapper.annotations.JasDBProperty;
+
 /**
  * @author Renze de Vries
  */
+@JasDBEntity(bagName = "MyBAG")
 public class LocalUser extends User {
     private String passwordHash;
     private String salt;
@@ -16,6 +20,7 @@ public class LocalUser extends User {
     public LocalUser() {
     }
 
+    @JasDBProperty
     public String getPasswordHash() {
         return passwordHash;
     }
@@ -24,6 +29,7 @@ public class LocalUser extends User {
         this.passwordHash = passwordHash;
     }
 
+    @JasDBProperty
     public String getSalt() {
         return salt;
     }

@@ -17,6 +17,7 @@
     <properties>
         <obera.base.version>1.1-SNAPSHOT</obera.base.version>
         <home.sdk.version>1.0-SNAPSHOT</home.sdk.version>
+        <jasdb.version>1.2.0-SNAPSHOT</jasdb.version>
     </properties>
 
     <developers>
@@ -101,6 +102,23 @@
                 <artifactId>security-model</artifactId>
                 <version>${project.version}</version>
             </dependency>
+
+            <!-- jasdb deps -->
+            <dependency>
+                <groupId>com.oberasoftware</groupId>
+                <artifactId>jasdb_restconnector</artifactId>
+                <version>${jasdb.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.oberasoftware</groupId>
+                <artifactId>jasdb_localservice</artifactId>
+                <version>${jasdb.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.oberasoftware</groupId>
+                <artifactId>jasdb_entity</artifactId>
+                <version>${jasdb.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -109,5 +127,6 @@
         <module>security-token-svc</module>
         <module>security-user-svc</module>
         <module>security-web</module>
+        <module>security-jasdb</module>
     </modules>
 </project>

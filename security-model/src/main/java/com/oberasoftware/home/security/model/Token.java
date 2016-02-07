@@ -1,8 +1,12 @@
 package com.oberasoftware.home.security.model;
 
+import com.oberasoftware.jasdb.api.entitymapper.annotations.JasDBEntity;
+import com.oberasoftware.jasdb.api.entitymapper.annotations.JasDBProperty;
+
 /**
  * @author Renze de Vries
  */
+@JasDBEntity(bagName = "tokens")
 public class Token {
 
     public enum TOKEN_TYPE {
@@ -13,20 +17,21 @@ public class Token {
     private String tokenId;
     private String userId;
     private String token;
-    private long created;
+    private long expiresIn;
     private TOKEN_TYPE tokenType;
 
-    public Token(String tokenId, String userId, String token, long created, TOKEN_TYPE tokenType) {
+    public Token(String tokenId, String userId, String token, long expiresIn, TOKEN_TYPE tokenType) {
         this.tokenId = tokenId;
         this.userId = userId;
         this.token = token;
-        this.created = created;
+        this.expiresIn = expiresIn;
         this.tokenType = tokenType;
     }
 
     public Token() {
     }
 
+    @JasDBProperty
     public String getTokenId() {
         return tokenId;
     }
@@ -35,6 +40,7 @@ public class Token {
         this.tokenId = tokenId;
     }
 
+    @JasDBProperty
     public String getUserId() {
         return userId;
     }
@@ -43,6 +49,7 @@ public class Token {
         this.userId = userId;
     }
 
+    @JasDBProperty
     public String getToken() {
         return token;
     }
@@ -51,14 +58,16 @@ public class Token {
         this.token = token;
     }
 
-    public long getCreated() {
-        return created;
+    @JasDBProperty
+    public long getExpiresIn() {
+        return expiresIn;
     }
 
-    public void setCreated(long created) {
-        this.created = created;
+    public void setExpiresIn(long expiresIn) {
+        this.expiresIn = expiresIn;
     }
 
+    @JasDBProperty
     public TOKEN_TYPE getTokenType() {
         return tokenType;
     }
@@ -74,7 +83,7 @@ public class Token {
 
         Token token1 = (Token) o;
 
-        if (created != token1.created) return false;
+        if (expiresIn != token1.expiresIn) return false;
         if (!tokenId.equals(token1.tokenId)) return false;
         if (!userId.equals(token1.userId)) return false;
         if (!token.equals(token1.token)) return false;
@@ -87,7 +96,7 @@ public class Token {
         int result = tokenId.hashCode();
         result = 31 * result + userId.hashCode();
         result = 31 * result + token.hashCode();
-        result = 31 * result + (int) (created ^ (created >>> 32));
+        result = 31 * result + (int) (expiresIn ^ (expiresIn >>> 32));
         result = 31 * result + tokenType.hashCode();
         return result;
     }
@@ -98,7 +107,7 @@ public class Token {
                 "tokenId='" + tokenId + '\'' +
                 ", userId='" + userId + '\'' +
                 ", token='" + token + '\'' +
-                ", created=" + created +
+                ", expiresIn=" + expiresIn +
                 ", tokenType=" + tokenType +
                 '}';
     }

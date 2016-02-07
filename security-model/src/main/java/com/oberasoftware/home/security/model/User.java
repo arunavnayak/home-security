@@ -1,5 +1,7 @@
 package com.oberasoftware.home.security.model;
 
+import com.oberasoftware.jasdb.api.entitymapper.annotations.JasDBProperty;
+
 /**
  * @author Renze de Vries
  */
@@ -17,6 +19,7 @@ public class User {
     public User() {
     }
 
+    @JasDBProperty
     public String getUserId() {
         return userId;
     }
@@ -25,6 +28,7 @@ public class User {
         this.userId = userId;
     }
 
+    @JasDBProperty
     public String getUserName() {
         return userName;
     }
@@ -33,6 +37,7 @@ public class User {
         this.userName = userName;
     }
 
+    @JasDBProperty
     public String getUserMail() {
         return userMail;
     }
