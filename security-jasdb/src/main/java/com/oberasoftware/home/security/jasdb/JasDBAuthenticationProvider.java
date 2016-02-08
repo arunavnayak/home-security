@@ -35,7 +35,7 @@ public class JasDBAuthenticationProvider implements AuthenticationProvider {
         try {
             DBSession session = sessionFactory.createSession();
             EntityManager entityManager = session.getEntityManager();
-            List<LocalUser> users = entityManager.findEntities(LocalUser.class, createBuilder().field("clientId").value(clientId));
+            List<LocalUser> users = entityManager.findEntities(LocalUser.class, createBuilder().field("userName").value(clientId));
 
             if(users.size() == SINGLE_USER) {
                 LocalUser user = users.get(0);

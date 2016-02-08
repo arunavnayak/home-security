@@ -1,5 +1,6 @@
 package com.oberasoftware.home.security.model;
 
+import com.oberasoftware.jasdb.api.entitymapper.annotations.Id;
 import com.oberasoftware.jasdb.api.entitymapper.annotations.JasDBProperty;
 
 /**
@@ -20,6 +21,7 @@ public class User {
     }
 
     @JasDBProperty
+    @Id
     public String getUserId() {
         return userId;
     }

@@ -24,5 +24,9 @@
             <groupId>com.oberasoftware</groupId>
             <artifactId>security-model</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.oberasoftware</groupId>
+            <artifactId>home-util</artifactId>
+        </dependency>
     </dependencies>
 </project>
