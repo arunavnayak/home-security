@@ -1,7 +1,5 @@
 package com.oberasoftware.home.security.token;
 
-import com.oberasoftware.home.security.AuthenticatedUser;
-import com.oberasoftware.home.security.AuthenticationManager;
 import com.oberasoftware.home.security.GrantTypeHandler;
 import com.oberasoftware.home.security.OAuthException;
 import org.slf4j.Logger;
@@ -10,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,13 +17,13 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
  * @author Renze de Vries
  */
 @RestController
+@RequestMapping("/token")
 public class TokenEndpoint {
     private static final Logger LOG = LoggerFactory.getLogger(TokenEndpoint.class);
 

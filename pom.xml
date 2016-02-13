@@ -102,6 +102,12 @@
                 <artifactId>security-model</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.oberasoftware</groupId>
+                <artifactId>security-jasdb</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
 
             <!-- jasdb deps -->
             <dependency>
@@ -128,5 +134,7 @@
         <module>security-user-svc</module>
         <module>security-web</module>
         <module>security-jasdb</module>
+        <module>security-client</module>
+        <module>security-validation</module>
     </modules>
 </project>
