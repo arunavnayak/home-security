@@ -37,7 +37,7 @@ public class JasDBTokenStore implements TokenStore {
     }
 
     @Override
-    public Optional<Token> validateToken(String token) {
+    public Optional<Token> validateToken(String clientId, String token) {
         try {
             DBSession session = sessionFactory.createSession();
             EntityManager entityManager = session.getEntityManager();

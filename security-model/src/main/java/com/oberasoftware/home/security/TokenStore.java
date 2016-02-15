@@ -10,5 +10,5 @@ import java.util.Optional;
 public interface TokenStore {
     boolean storeToken(String clientId, Token token);
 
-    Optional<Token> validateToken(String token);
+    Optional<Token> validateToken(String clientId, String token);
 }

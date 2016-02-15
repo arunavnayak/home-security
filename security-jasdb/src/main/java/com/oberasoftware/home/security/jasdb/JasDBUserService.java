@@ -16,7 +16,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
+
+import static nl.renarj.jasdb.api.query.QueryBuilder.createBuilder;
 
 /**
  * @author Renze de Vries
@@ -47,6 +50,25 @@ public class JasDBUserService implements UserService {
             LOG.error("Unable to store user", e);
             throw new RuntimeHomeAutomationException("Unable to store user data", e);
         }
+    }
+
+    @Override
+    public Optional<User> findUser(String clientId) {
+        try {
+            DBSession session = sessionFactory.createSession();
+            EntityManager entityManager = session.getEntityManager();
+            List<LocalUser> users = entityManager.findEntities(LocalUser.class,
+                    createBuilder().field("userName").value(clientId));
+
+            if(users.size() == 1) {
+                User user = users.get(0);
+                return Optional.of(user);
+            }
+        } catch(JasDBStorageException e) {
+            LOG.error("Unable to find user", e);
+        }
+
+        return Optional.empty();
     }
 
     @Override
