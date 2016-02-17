@@ -16,5 +16,15 @@
             <groupId>com.oberasoftware</groupId>
             <artifactId>security-model</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.oberasoftware</groupId>
+            <artifactId>security-jasdb</artifactId>
+        </dependency>
+
     </dependencies>
+
 </project>
