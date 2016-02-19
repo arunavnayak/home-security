@@ -1,6 +1,6 @@
 package com.oberasoftware.home.security.token;
 
-import com.oberasoftware.home.security.jasdb.JasDBConfiguration;
+import com.oberasoftware.home.security.core.CommonConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Import;
  */
 @SpringBootApplication
 @ComponentScan
-@Import(JasDBConfiguration.class)
+@Import(CommonConfiguration.class)
 public class TokenEndpointContainer {
     private static final Logger LOG = LoggerFactory.getLogger(TokenEndpointContainer.class);
 

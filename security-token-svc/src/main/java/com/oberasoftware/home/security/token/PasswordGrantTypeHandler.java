@@ -1,7 +1,7 @@
 package com.oberasoftware.home.security.token;
 
-import com.oberasoftware.home.security.*;
-import com.oberasoftware.home.security.model.Token;
+import com.oberasoftware.home.security.common.api.*;
+import com.oberasoftware.home.security.common.model.Token;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,7 @@ public class PasswordGrantTypeHandler implements GrantTypeHandler {
 
     @Override
     public ResponseEntity<?> authenticate(String clientId, HttpServletRequest request) {
-        LOG.info("Handling password grant for client: {}", clientId);
+        LOG.debug("Handling password grant for client: {}", clientId);
         String clientSecret = request.getParameter("client_secret");
         Optional<AuthenticatedUser> u = authenticationManager.authenticate(clientId, clientSecret);
         if(u.isPresent()) {

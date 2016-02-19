@@ -1,8 +1,6 @@
-package com.oberasoftware.home.security;
+package com.oberasoftware.home.security.common.api;
 
-import com.oberasoftware.home.security.model.Token;
-
-import java.util.Optional;
+import com.oberasoftware.home.security.common.model.Token;
 
 /**
  * @author Renze de Vries

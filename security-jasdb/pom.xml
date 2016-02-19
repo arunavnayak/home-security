@@ -22,7 +22,7 @@
         </dependency>
         <dependency>
             <groupId>com.oberasoftware</groupId>
-            <artifactId>security-model</artifactId>
+            <artifactId>security-common</artifactId>
         </dependency>
         <dependency>
             <groupId>com.oberasoftware</groupId>

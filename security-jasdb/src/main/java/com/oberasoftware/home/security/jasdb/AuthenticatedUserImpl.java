@@ -1,8 +1,9 @@
 package com.oberasoftware.home.security.jasdb;
 
-import com.oberasoftware.home.security.AuthenticatedUser;
-import com.oberasoftware.home.security.model.Role;
-import com.oberasoftware.home.security.model.User;
+
+import com.oberasoftware.home.security.common.api.AuthenticatedUser;
+import com.oberasoftware.home.security.common.model.Role;
+import com.oberasoftware.home.security.common.model.User;
 
 import java.util.List;
 

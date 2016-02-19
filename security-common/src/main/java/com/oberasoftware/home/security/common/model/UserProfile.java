@@ -1,4 +1,4 @@
-package com.oberasoftware.home.security.model;
+package com.oberasoftware.home.security.common.model;
 
 import java.util.HashMap;
 import java.util.Map;

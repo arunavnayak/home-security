@@ -105,6 +105,11 @@
             </dependency>
             <dependency>
                 <groupId>com.oberasoftware</groupId>
+                <artifactId>security-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.oberasoftware</groupId>
                 <artifactId>security-jasdb</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -170,5 +175,6 @@
         <module>security-web</module>
         <module>security-jasdb</module>
         <module>security-client</module>
+        <module>security-core</module>
     </modules>
 </project>

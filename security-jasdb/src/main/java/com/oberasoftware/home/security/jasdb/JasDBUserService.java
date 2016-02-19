@@ -1,9 +1,9 @@
 package com.oberasoftware.home.security.jasdb;
 
 import com.oberasoftware.home.api.exceptions.RuntimeHomeAutomationException;
-import com.oberasoftware.home.security.UserService;
-import com.oberasoftware.home.security.model.LocalUser;
-import com.oberasoftware.home.security.model.User;
+import com.oberasoftware.home.security.common.api.UserService;
+import com.oberasoftware.home.security.common.model.LocalUser;
+import com.oberasoftware.home.security.common.model.User;
 import com.oberasoftware.home.util.crypto.CryptoEngine;
 import com.oberasoftware.home.util.crypto.CryptoFactory;
 import com.oberasoftware.jasdb.api.entitymapper.EntityManager;

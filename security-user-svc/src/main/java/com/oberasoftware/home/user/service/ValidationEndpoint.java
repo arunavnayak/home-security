@@ -1,10 +1,9 @@
 package com.oberasoftware.home.user.service;
 
-import com.oberasoftware.home.security.AuthenticationManager;
-import com.oberasoftware.home.security.OAuthException;
-import com.oberasoftware.home.security.TokenStore;
-import com.oberasoftware.home.security.UserService;
-import com.oberasoftware.home.security.model.User;
+import com.oberasoftware.home.security.common.api.AuthenticationManager;
+import com.oberasoftware.home.security.common.api.OAuthException;
+import com.oberasoftware.home.security.common.api.UserService;
+import com.oberasoftware.home.security.common.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +28,6 @@ public class ValidationEndpoint {
     private static final Logger LOG = LoggerFactory.getLogger(ValidationEndpoint.class);
 
     @Autowired
-    private TokenStore tokenStore;
-
-    @Autowired
     private AuthenticationManager authenticationManager;
 
     @Autowired
@@ -42,16 +38,17 @@ public class ValidationEndpoint {
     public ResponseEntity<?> validate(HttpServletRequest request) {
         String clientId = request.getParameter("client_id");
         String token = request.getParameter("token");
-        LOG.debug("Validating token: {}", token);
+        LOG.info("Validating token: {}", token);
 
         if(!StringUtils.isEmpty(clientId) && !StringUtils.isEmpty(token)) {
             try {
                 if(authenticationManager.validate(clientId, token)) {
-                    LOG.debug("Token: {} is valid for client: {}", token, clientId);
+                    LOG.info("Token: {} is valid for client: {}", token, clientId);
                     Optional<User> user = userService.findUser(clientId);
 
                     return ResponseEntity.ok(user.get());
                 } else {
+                    LOG.info("Token is invalid");
                     return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                             .body(Collections.singletonMap("error", "unauthorized user"));
                 }

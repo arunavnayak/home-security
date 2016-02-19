@@ -1,4 +1,4 @@
-package com.oberasoftware.home.security.model;
+package com.oberasoftware.home.security.common.model;
 
 import com.oberasoftware.jasdb.api.entitymapper.annotations.JasDBEntity;
 import com.oberasoftware.jasdb.api.entitymapper.annotations.JasDBProperty;
@@ -6,7 +6,7 @@ import com.oberasoftware.jasdb.api.entitymapper.annotations.JasDBProperty;
 /**
  * @author Renze de Vries
  */
-@JasDBEntity(bagName = "MyBAG")
+@JasDBEntity(bagName = "LocalUsers")
 public class LocalUser extends User {
     private String passwordHash;
     private String salt;

@@ -1,4 +1,4 @@
-package com.oberasoftware.home.security.model;
+package com.oberasoftware.home.security.common.model;
 
 import com.oberasoftware.jasdb.api.entitymapper.annotations.Id;
 import com.oberasoftware.jasdb.api.entitymapper.annotations.JasDBProperty;

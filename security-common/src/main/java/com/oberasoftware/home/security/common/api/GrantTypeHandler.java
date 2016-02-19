@@ -1,4 +1,4 @@
-package com.oberasoftware.home.security;
+package com.oberasoftware.home.security.common.api;
 
 import org.springframework.http.HttpRequest;
 import org.springframework.http.ResponseEntity;

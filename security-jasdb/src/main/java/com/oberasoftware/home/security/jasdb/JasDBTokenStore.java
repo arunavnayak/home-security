@@ -1,7 +1,7 @@
 package com.oberasoftware.home.security.jasdb;
 
-import com.oberasoftware.home.security.TokenStore;
-import com.oberasoftware.home.security.model.Token;
+import com.oberasoftware.home.security.common.api.TokenStore;
+import com.oberasoftware.home.security.common.model.Token;
 import com.oberasoftware.jasdb.api.entitymapper.EntityManager;
 import nl.renarj.jasdb.api.DBSession;
 import nl.renarj.jasdb.api.query.QueryBuilder;
@@ -39,14 +39,18 @@ public class JasDBTokenStore implements TokenStore {
     @Override
     public Optional<Token> validateToken(String clientId, String token) {
         try {
+            LOG.info("Validating token: {} for clientId: {}", token, clientId);
             DBSession session = sessionFactory.createSession();
             EntityManager entityManager = session.getEntityManager();
             List<Token> tokens = entityManager.findEntities(Token.class, QueryBuilder.createBuilder().field("token").value(token));
             if(tokens.size() == 1) {
+                LOG.info("Token found");
                 return Optional.of(tokens.get(0));
+            } else {
+                LOG.info("No records found for token: {}", token);
             }
         } catch (JasDBStorageException e) {
-            LOG.error("Unale to persist token", e);
+            LOG.error("Unable to read token", e);
         }
 
         return Optional.empty();

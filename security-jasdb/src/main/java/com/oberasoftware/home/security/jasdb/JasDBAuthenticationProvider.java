@@ -1,8 +1,8 @@
 package com.oberasoftware.home.security.jasdb;
 
-import com.oberasoftware.home.security.AuthenticatedUser;
-import com.oberasoftware.home.security.AuthenticationProvider;
-import com.oberasoftware.home.security.model.LocalUser;
+import com.oberasoftware.home.security.common.api.AuthenticatedUser;
+import com.oberasoftware.home.security.common.api.AuthenticationProvider;
+import com.oberasoftware.home.security.common.model.LocalUser;
 import com.oberasoftware.jasdb.api.entitymapper.EntityManager;
 import nl.renarj.jasdb.api.DBSession;
 import nl.renarj.jasdb.core.crypto.CryptoEngine;

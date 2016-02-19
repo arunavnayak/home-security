@@ -1,8 +1,8 @@
 package com.oberasoftware.home.security.token;
 
-import com.oberasoftware.home.security.OAuthException;
-import com.oberasoftware.home.security.TokenManager;
-import com.oberasoftware.home.security.model.Token;
+import com.oberasoftware.home.security.common.api.OAuthException;
+import com.oberasoftware.home.security.common.api.TokenManager;
+import com.oberasoftware.home.security.common.model.Token;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,7 +14,6 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.util.Optional;
 import java.util.Random;
 import java.util.UUID;
 

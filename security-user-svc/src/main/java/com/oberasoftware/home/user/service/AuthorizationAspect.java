@@ -20,13 +20,14 @@ public class AuthorizationAspect {
 
 //    @Around("execution(* com.oberasoftware.home.user.service.ValidationEndpoint.*(..))")
     @Around("@annotation(com.oberasoftware.home.user.service.Secured) && args(request)")
-    public void authorizeRequest(ProceedingJoinPoint jp, HttpServletRequest request) {
+    public Object authorizeRequest(ProceedingJoinPoint jp, HttpServletRequest request) {
         LOG.info("Authorizing request?");
 
         try {
-            jp.proceed();
+            return jp.proceed();
         } catch (Throwable e) {
             LOG.error("", e);
+            return null;
         }
     }
 }

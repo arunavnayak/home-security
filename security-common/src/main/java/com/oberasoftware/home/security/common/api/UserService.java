@@ -1,6 +1,6 @@
-package com.oberasoftware.home.security;
+package com.oberasoftware.home.security.common.api;
 
-import com.oberasoftware.home.security.model.User;
+import com.oberasoftware.home.security.common.model.User;
 
 import java.util.Optional;
 

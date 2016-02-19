@@ -1,7 +1,7 @@
 package com.oberasoftware.home.security.token;
 
-import com.oberasoftware.home.security.GrantTypeHandler;
-import com.oberasoftware.home.security.OAuthException;
+import com.oberasoftware.home.security.common.api.GrantTypeHandler;
+import com.oberasoftware.home.security.common.api.OAuthException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

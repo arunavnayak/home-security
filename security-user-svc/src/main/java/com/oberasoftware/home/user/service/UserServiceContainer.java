@@ -1,6 +1,6 @@
 package com.oberasoftware.home.user.service;
 
-import com.oberasoftware.home.security.jasdb.JasDBConfiguration;
+import com.oberasoftware.home.security.core.CommonConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Import;
  */
 @SpringBootApplication
 @EnableAspectJAutoProxy
-@Import(JasDBConfiguration.class)
+@Import(CommonConfiguration.class)
 public class UserServiceContainer {
     private static final Logger LOG = LoggerFactory.getLogger(UserServiceContainer.class);
 

@@ -14,17 +14,12 @@
     <dependencies>
         <dependency>
             <groupId>com.oberasoftware</groupId>
-            <artifactId>security-common</artifactId>
+            <artifactId>security-core</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aspects</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.oberasoftware</groupId>
-            <artifactId>security-jasdb</artifactId>
-        </dependency>
-
     </dependencies>
 
     <build>

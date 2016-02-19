@@ -36,8 +36,6 @@ public class JasDBSessionFactory {
 
     public DBSession createSession() throws JasDBStorageException {
         DBSession session;
-        LOG.info("Jasdb Mode: {}", jasdbMode);
-
         if(stringNotEmpty(jasdbMode) && jasdbMode.equals("rest")) {
             LOG.debug("Creating JasDB REST session to host: {} port: {} instance: {}", jasdbHost, jasdbPort, jasdbInstance);
             session = new RestDBSession(jasdbInstance, jasdbHost, jasdbPort);
