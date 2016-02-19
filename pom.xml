@@ -135,6 +135,5 @@
         <module>security-web</module>
         <module>security-jasdb</module>
         <module>security-client</module>
-        <module>security-validation</module>
     </modules>
 </project>
