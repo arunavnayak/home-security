@@ -14,7 +14,7 @@
     <dependencies>
         <dependency>
             <groupId>com.oberasoftware</groupId>
-            <artifactId>security-model</artifactId>
+            <artifactId>security-common</artifactId>
         </dependency>
     </dependencies>
 </project>

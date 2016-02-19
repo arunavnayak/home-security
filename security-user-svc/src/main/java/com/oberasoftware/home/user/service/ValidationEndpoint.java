@@ -1,9 +1,9 @@
 package com.oberasoftware.home.user.service;
 
+import com.oberasoftware.home.security.AuthenticationManager;
 import com.oberasoftware.home.security.OAuthException;
 import com.oberasoftware.home.security.TokenStore;
 import com.oberasoftware.home.security.UserService;
-import com.oberasoftware.home.security.model.Token;
 import com.oberasoftware.home.security.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +32,9 @@ public class ValidationEndpoint {
     private TokenStore tokenStore;
 
     @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
     private UserService userService;
 
     @Secured
@@ -43,8 +46,8 @@ public class ValidationEndpoint {
 
         if(!StringUtils.isEmpty(clientId) && !StringUtils.isEmpty(token)) {
             try {
-                Optional<Token> validatedToken = tokenStore.validateToken(clientId, token);
-                if(validatedToken.isPresent()) {
+                if(authenticationManager.validate(clientId, token)) {
+                    LOG.debug("Token: {} is valid for client: {}", token, clientId);
                     Optional<User> user = userService.findUser(clientId);
 
                     return ResponseEntity.ok(user.get());
