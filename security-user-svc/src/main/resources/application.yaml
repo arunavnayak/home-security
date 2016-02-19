@@ -1,0 +1,9 @@
+jasdb:
+    mode: local
+---
+spring:
+    profiles: production
+jasdb:
+    mode: rest
+    host: ${dbhost}
+    port: ${dbport}
