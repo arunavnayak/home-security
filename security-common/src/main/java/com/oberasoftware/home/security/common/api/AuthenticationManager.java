@@ -7,9 +7,7 @@ import java.util.Optional;
  */
 public interface AuthenticationManager {
 
-    Optional<AuthenticatedUser> authenticate(String clientId, String password);
+    Optional<AuthenticatedResource> authenticate(String clientId, String password);
 
     boolean validate(String clientId, String token);
-
-
 }

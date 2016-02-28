@@ -10,6 +10,8 @@ import javax.annotation.PostConstruct;
 import java.util.Optional;
 import java.util.UUID;
 
+import static com.google.common.collect.Lists.newArrayList;
+
 /**
  * @author Renze de Vries
  */
@@ -30,7 +32,9 @@ public class DefaultAuthenticationManager implements AuthenticationManager {
     public void initialize() {
         if(!userService.findUser("admin").isPresent()) {
             String adminPassword = UUID.randomUUID().toString();
-            userService.createUser("admin", adminPassword, "admin@local");
+            userService.createUser("admin", adminPassword, "admin@local", newArrayList("admin"));
+            userService.createUser("simpleuser", adminPassword, "admin@local", newArrayList("user"));
+            userService.createUser("internaluser", adminPassword, "admin@local", newArrayList("trustedResource"));
             LOG.info("No Admin user existed, created user 'admin' with password '{}'", adminPassword);
         }
     }
@@ -42,7 +46,7 @@ public class DefaultAuthenticationManager implements AuthenticationManager {
     }
 
     @Override
-    public Optional<AuthenticatedUser> authenticate(String clientId, String password) {
+    public Optional<AuthenticatedResource> authenticate(String clientId, String password) {
         return provider.authenticate(clientId, password);
     }
 }

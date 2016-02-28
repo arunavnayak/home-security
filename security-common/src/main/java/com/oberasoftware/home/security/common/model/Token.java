@@ -15,14 +15,14 @@ public class Token {
     }
 
     private String tokenId;
-    private String userId;
+    private String resourceId;
     private String token;
     private long expiresIn;
     private TOKEN_TYPE tokenType;
 
-    public Token(String tokenId, String userId, String token, long expiresIn, TOKEN_TYPE tokenType) {
+    public Token(String tokenId, String resourceId, String token, long expiresIn, TOKEN_TYPE tokenType) {
         this.tokenId = tokenId;
-        this.userId = userId;
+        this.resourceId = resourceId;
         this.token = token;
         this.expiresIn = expiresIn;
         this.tokenType = tokenType;
@@ -41,12 +41,12 @@ public class Token {
     }
 
     @JasDBProperty
-    public String getUserId() {
-        return userId;
+    public String getResourceId() {
+        return resourceId;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setResourceId(String resourceId) {
+        this.resourceId = resourceId;
     }
 
     @JasDBProperty
@@ -85,7 +85,7 @@ public class Token {
 
         if (expiresIn != token1.expiresIn) return false;
         if (!tokenId.equals(token1.tokenId)) return false;
-        if (!userId.equals(token1.userId)) return false;
+        if (!resourceId.equals(token1.resourceId)) return false;
         if (!token.equals(token1.token)) return false;
         return tokenType == token1.tokenType;
 
@@ -94,7 +94,7 @@ public class Token {
     @Override
     public int hashCode() {
         int result = tokenId.hashCode();
-        result = 31 * result + userId.hashCode();
+        result = 31 * result + resourceId.hashCode();
         result = 31 * result + token.hashCode();
         result = 31 * result + (int) (expiresIn ^ (expiresIn >>> 32));
         result = 31 * result + tokenType.hashCode();
@@ -105,7 +105,7 @@ public class Token {
     public String toString() {
         return "Token{" +
                 "tokenId='" + tokenId + '\'' +
-                ", userId='" + userId + '\'' +
+                ", resourceId='" + resourceId + '\'' +
                 ", token='" + token + '\'' +
                 ", expiresIn=" + expiresIn +
                 ", tokenType=" + tokenType +

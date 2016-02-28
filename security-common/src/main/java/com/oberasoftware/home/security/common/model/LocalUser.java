@@ -3,6 +3,9 @@ package com.oberasoftware.home.security.common.model;
 import com.oberasoftware.jasdb.api.entitymapper.annotations.JasDBEntity;
 import com.oberasoftware.jasdb.api.entitymapper.annotations.JasDBProperty;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Renze de Vries
  */
@@ -11,8 +14,8 @@ public class LocalUser extends User {
     private String passwordHash;
     private String salt;
 
-    public LocalUser(String userId, String userName, String userMail, String passwordHash, String salt) {
-        super(userId, userName, userMail);
+    public LocalUser(String userId, String userName, String userMail, List<String> roles, String passwordHash, String salt) {
+        super(userId, userName, userMail, roles, new ArrayList<>());
         this.passwordHash = passwordHash;
         this.salt = salt;
     }

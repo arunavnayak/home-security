@@ -3,6 +3,9 @@ package com.oberasoftware.home.security.common.model;
 import com.oberasoftware.jasdb.api.entitymapper.annotations.Id;
 import com.oberasoftware.jasdb.api.entitymapper.annotations.JasDBProperty;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Renze de Vries
  */
@@ -11,17 +14,23 @@ public class User {
     private String userName;
     private String userMail;
 
-    public User(String userId, String userName, String userMail) {
+    private List<String> roles;
+
+    private List<String> controllers = new ArrayList<>();
+
+    public User(String userId, String userName, String userMail, List<String> roles, List<String> controllers) {
         this.userId = userId;
         this.userName = userName;
         this.userMail = userMail;
+        this.roles = roles;
+        this.controllers = controllers;
     }
 
     public User() {
     }
 
-    @JasDBProperty
     @Id
+    @JasDBProperty
     public String getUserId() {
         return userId;
     }
@@ -46,6 +55,28 @@ public class User {
 
     public void setUserMail(String userMail) {
         this.userMail = userMail;
+    }
+
+    @JasDBProperty
+    public List<String> getControllers() {
+        return controllers;
+    }
+
+    public void setControllers(List<String> controllers) {
+        this.controllers = controllers;
+    }
+
+    public void addController(String controllerId) {
+        this.controllers.add(controllerId);
+    }
+
+    @JasDBProperty
+    public List<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
     }
 
     @Override

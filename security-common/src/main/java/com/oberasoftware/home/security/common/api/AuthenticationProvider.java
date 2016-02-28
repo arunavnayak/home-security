@@ -6,5 +6,5 @@ import java.util.Optional;
  * @author Renze de Vries
  */
 public interface AuthenticationProvider {
-    Optional<AuthenticatedUser> authenticate(String clientId, String password);
+    Optional<AuthenticatedResource> authenticate(String clientId, String password);
 }

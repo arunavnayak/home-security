@@ -1,7 +1,8 @@
 package com.oberasoftware.home.security.jasdb;
 
-import com.oberasoftware.home.security.common.api.AuthenticatedUser;
+import com.oberasoftware.home.security.common.api.AuthenticatedResource;
 import com.oberasoftware.home.security.common.api.AuthenticationProvider;
+import com.oberasoftware.home.security.common.model.AuthenticatedResourceImpl;
 import com.oberasoftware.home.security.common.model.LocalUser;
 import com.oberasoftware.jasdb.api.entitymapper.EntityManager;
 import nl.renarj.jasdb.api.DBSession;
@@ -31,7 +32,7 @@ public class JasDBAuthenticationProvider implements AuthenticationProvider {
     private JasDBSessionFactory sessionFactory;
 
     @Override
-    public Optional<AuthenticatedUser> authenticate(String clientId, String password) {
+    public Optional<AuthenticatedResource> authenticate(String clientId, String password) {
         try {
             DBSession session = sessionFactory.createSession();
             EntityManager entityManager = session.getEntityManager();
@@ -44,11 +45,11 @@ public class JasDBAuthenticationProvider implements AuthenticationProvider {
                 String salt = user.getSalt();
 
                 CryptoEngine cryptoEngine = CryptoFactory.getEngine();
-                boolean authenticated = cryptoEngine.hash(salt, password).equals(hash);
+                boolean authenticated = cryptoEngine.hash(salt, password).equalsIgnoreCase(hash);
                 LOG.debug("User: {} was successfully authenticated: {}", clientId, authenticated);
 
                 if(authenticated) {
-                    return Optional.of(new AuthenticatedUserImpl(user, new ArrayList<>()));
+                    return Optional.of(new AuthenticatedResourceImpl<>(user, new ArrayList<>()));
                 }
             }
         } catch(JasDBStorageException e) {

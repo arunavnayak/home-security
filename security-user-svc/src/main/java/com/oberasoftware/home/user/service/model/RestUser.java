@@ -1,4 +1,4 @@
-package com.oberasoftware.home.user.service;
+package com.oberasoftware.home.user.service.model;
 
 
 import com.oberasoftware.home.security.common.model.User;

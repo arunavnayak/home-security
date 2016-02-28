@@ -6,11 +6,11 @@ import org.springframework.stereotype.Component;
  * @author Renze de Vries
  */
 @Component
-public class PasswordGrantTypeHandler extends BaseGrantTypeHandler {
-    private static final String PASSWORD_GRANT = "password";
+public class ClientResourceGrantTypeHandler extends BaseGrantTypeHandler {
+    private static final String CLIENT_GRANT = "client_credentials";
 
     @Override
     public String getSupportedGrantType() {
-        return PASSWORD_GRANT;
+        return CLIENT_GRANT;
     }
 }

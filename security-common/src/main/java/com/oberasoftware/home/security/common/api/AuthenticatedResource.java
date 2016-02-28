@@ -8,8 +8,8 @@ import java.util.List;
 /**
  * @author Renze de Vries
  */
-public interface AuthenticatedUser {
-    User getUser();
+public interface AuthenticatedResource {
+    <T extends User> T getResource();
 
     List<Role> getRoles();
 }

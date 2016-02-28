@@ -1,7 +1,8 @@
-package com.oberasoftware.home.user.service;
+package com.oberasoftware.home.user.service.endpoints;
 
 import com.oberasoftware.home.security.common.api.UserService;
 import com.oberasoftware.home.security.common.model.User;
+import com.oberasoftware.home.user.service.aspects.OwnerSecured;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +28,12 @@ public class ValidationEndpoint {
     @Autowired
     private UserService userService;
 
-    @Secured
+    @OwnerSecured
     @RequestMapping(method = RequestMethod.GET, consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> validate(HttpServletRequest request) {
         String clientId = request.getParameter("client_id");
         String token = request.getParameter("token");
-        LOG.info("Validating token: {}", token);
+        LOG.debug("Validating token: {}", token);
 
         Optional<User> user = userService.findUser(clientId);
 
@@ -41,7 +42,8 @@ public class ValidationEndpoint {
             User internalUser = user.get();
 
             //wrap in a new response model to isolate sensitive fields
-            return ResponseEntity.ok(new User(internalUser.getUserId(), internalUser.getUserName(), internalUser.getUserMail()));
+            return ResponseEntity.ok(new User(internalUser.getUserId(), internalUser.getUserName(), internalUser.getUserMail(),
+                    internalUser.getRoles(), internalUser.getControllers()));
         } else {
             LOG.debug("The user: {} could not be found, valid token: {}", clientId, token);
             return sendResponse("unauthorized user");

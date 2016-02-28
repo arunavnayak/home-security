@@ -43,9 +43,9 @@ public class JasDBTokenStore implements TokenStore {
             DBSession session = sessionFactory.createSession();
             EntityManager entityManager = session.getEntityManager();
             List<Token> tokens = entityManager.findEntities(Token.class, QueryBuilder.createBuilder().field("token")
-                    .value(token).field("userId").value(clientId));
+                    .value(token).field("resourceId").value(clientId));
             if(tokens.size() == 1) {
-                LOG.info("Token found");
+                LOG.info("Token: {} found", token);
                 return Optional.of(tokens.get(0));
             } else {
                 LOG.info("No records found for token: {}", token);
