@@ -1,0 +1,22 @@
+{
+  "users": [
+    {
+      "userName":"admin",
+      "userEmail":"admin@local",
+      "userPassword":"myL0c@lP@ssw0rd",
+      "roles": ["admin", "internalResource"]
+    },
+    {
+      "userName":"resource-web",
+      "userEmail":"resource-web@local",
+      "userPassword":"myL0c@lP@ssw0rd",
+      "roles": ["internalResource"]
+    },
+    {
+      "userName":"testUser",
+      "userEmail":"testUser@local",
+      "userPassword":"myL0c@lP@ssw0rd",
+      "roles": ["user"]
+    }
+  ]
+}

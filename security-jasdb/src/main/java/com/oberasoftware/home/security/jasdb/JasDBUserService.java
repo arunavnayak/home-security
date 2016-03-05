@@ -8,6 +8,7 @@ import com.oberasoftware.home.security.common.model.User;
 import com.oberasoftware.home.util.crypto.CryptoEngine;
 import com.oberasoftware.home.util.crypto.CryptoFactory;
 import com.oberasoftware.jasdb.api.entitymapper.EntityManager;
+import nl.renarj.core.utilities.StringUtils;
 import nl.renarj.jasdb.api.DBSession;
 import nl.renarj.jasdb.api.query.QueryBuilder;
 import nl.renarj.jasdb.core.exceptions.JasDBStorageException;
@@ -30,13 +31,13 @@ import static nl.renarj.jasdb.api.query.QueryBuilder.createBuilder;
 public class JasDBUserService implements UserService {
     private static final Logger LOG = LoggerFactory.getLogger(JasDBUserService.class);
 
+    private static final CryptoEngine cryptoEngine = CryptoFactory.getEngine();
+
     @Autowired
     private JasDBSessionFactory sessionFactory;
 
     @Override
     public User createUser(String clientId, String password, String email, List<String> roles) {
-        CryptoEngine cryptoEngine = CryptoFactory.getEngine();
-
         try {
             String salt = cryptoEngine.generateSalt();
             String hash = cryptoEngine.hash(salt, password);
@@ -56,7 +57,41 @@ public class JasDBUserService implements UserService {
 
     @Override
     public User updateUser(String userName, String password, String email, List<String> roles, List<String> controllers) {
-        return null;
+        LocalUser user = findInternalUser(userName);
+        if(user != null) {
+            if(StringUtils.stringNotEmpty(password)) {
+                String salt = cryptoEngine.generateSalt();
+                String hash = cryptoEngine.hash(salt, password);
+
+                user.setPasswordHash(hash);
+                user.setSalt(salt);
+            }
+
+            if(StringUtils.stringNotEmpty(email)) {
+                user.setUserMail(email);
+            }
+
+            if(!roles.isEmpty()) {
+                user.setRoles(Lists.newArrayList(roles));
+            }
+
+            if(!controllers.isEmpty()) {
+                user.setControllers(Lists.newArrayList(controllers));
+            }
+
+            try {
+                DBSession session = sessionFactory.createSession();
+                EntityManager entityManager = session.getEntityManager();
+                entityManager.persist(user);
+
+                return user;
+            } catch (JasDBStorageException e) {
+                LOG.error("Unable to store user", e);
+                throw new RuntimeHomeAutomationException("Unable to store user data", e);
+            }
+        } else {
+            throw new RuntimeHomeAutomationException("Could not find user: " + userName + " to update");
+        }
     }
 
     @Override
