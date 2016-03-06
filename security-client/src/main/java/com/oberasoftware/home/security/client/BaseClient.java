@@ -1,6 +1,5 @@
 package com.oberasoftware.home.security.client;
 
-import com.oberasoftware.home.security.common.api.ClientException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -1,7 +1,5 @@
 package com.oberasoftware.home.security.client;
 
-import nl.renarj.jasdb.core.exceptions.RuntimeJasDBException;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,7 +26,7 @@ public class ClientResponse {
             try {
                 inputStream.close();
             } catch(IOException e) {
-                throw new RuntimeJasDBException("Unable to cleanly close connection", e);
+                throw new ClientException("Unable to cleanly close connection", e);
             }
         }
     }
@@ -42,7 +40,7 @@ public class ClientResponse {
 
                 return r;
             } catch(IOException e) {
-                throw new RuntimeJasDBException("Unable to load entity as string", e);
+                throw new ClientException("Unable to load entity as string", e);
             }
         } else {
             return null;
