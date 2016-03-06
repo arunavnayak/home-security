@@ -1,4 +1,4 @@
-package com.oberasoftware.home.security.client;
+package com.oberasoftware.home.security.client.model;
 
 /**
  * @author Renze de Vries

@@ -2,8 +2,8 @@ package com.oberasoftware.home.security.client;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.oberasoftware.home.security.common.api.OAuthException;
-import com.oberasoftware.home.security.common.model.User;
+import com.oberasoftware.home.security.client.model.OAuthToken;
+import com.oberasoftware.home.security.client.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,10 +39,36 @@ public class AuthClient extends BaseClient {
                 return new OAuthToken(token, expires);
             } else {
                 String message = rootNode.get("error").asText();
-                throw new OAuthException("Unable to obtain token: " + message);
+                throw new ClientException("Unable to obtain token: " + message);
             }
         } catch (IOException e) {
-            throw new OAuthException("Unable to obtain token");
+            throw new ClientException("Unable to obtain token");
+        }
+    }
+
+    public User getUser(String clientId, String token) {
+        Map<String, String> clientParams = new HashMap<>();
+        clientParams.put("client_id", clientId);
+        clientParams.put("token", token);
+
+        ClientResponse response = doInternalRequest(getEndpointUrl(), clientParams, "".getBytes(), REQUEST_MODE.GET);
+        ObjectMapper mapper = new ObjectMapper();
+
+        try {
+            JsonNode rootNode = mapper.readValue(response.getEntityAsString(), JsonNode.class);
+            if(!rootNode.has("error") && rootNode.has("userId")) {
+                String userId = rootNode.get("userId").asText();
+                String userName = rootNode.get("userName").asText();
+                String userMail = rootNode.get("userEmail").asText();
+
+                LOG.debug("Received a user with id: {} username: {}", userId, userName);
+                return new User(userId, userName, userMail);
+            } else {
+                String message = rootNode.get("error").asText();
+                throw new ClientException("Unable to obtain user details: " + message);
+            }
+        } catch (IOException e) {
+            throw new ClientException("Unable to obtain user details");
         }
     }
 

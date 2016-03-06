@@ -13,6 +13,12 @@
       "roles": ["internalResource"]
     },
     {
+      "userName":"mqtt-broker",
+      "userEmail":"mqtt-broker@local",
+      "userPassword":"myL0c@lP@ssw0rd",
+      "roles": ["internalResource"]
+    },
+    {
       "userName":"testUser",
       "userEmail":"testUser@local",
       "userPassword":"myL0c@lP@ssw0rd",
