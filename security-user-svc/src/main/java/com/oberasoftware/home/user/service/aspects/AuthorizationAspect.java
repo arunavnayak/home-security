@@ -18,6 +18,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.*;
 
 /**
@@ -98,7 +100,8 @@ public class AuthorizationAspect {
 
     private boolean authenticated(String clientId, String token) throws OAuthException {
         if(!StringUtils.isEmpty(clientId) && !StringUtils.isEmpty(token)) {
-            if(authenticationManager.validate(clientId, token)) {
+            String decodedToken = getDecodedToken(token);
+            if(authenticationManager.validate(clientId, decodedToken)) {
                 LOG.debug("Token is valid");
                 return true;
             } else {
@@ -110,6 +113,15 @@ public class AuthorizationAspect {
         }
 
         return false;
+    }
+
+    private String getDecodedToken(String token) {
+        try {
+            return URLDecoder.decode(token, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            LOG.error("Could not URL decode token, using original", e);
+            return token;
+        }
     }
 
     private ResponseEntity<?> sendResponse(String message) {

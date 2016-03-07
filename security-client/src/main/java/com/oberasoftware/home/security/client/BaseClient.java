@@ -36,13 +36,13 @@ public abstract class BaseClient {
 
     private URL getUrl(String resource, Map<String, String> params) throws MalformedURLException, UnsupportedEncodingException {
         StringBuilder urlBuilder = new StringBuilder();
-        urlBuilder.append(endpointUrl).append(URLEncoder.encode(resource, "UTF8"));
+        urlBuilder.append(endpointUrl).append(resource);
 
         boolean first = true;
         for(Map.Entry<String, String> param : params.entrySet()) {
             char queryChar = first ? '?' : '&';
             first = false;
-            urlBuilder.append(queryChar).append(param.getKey()).append("=").append(URLEncoder.encode(param.getValue(), "UTF8"));
+            urlBuilder.append(queryChar).append(param.getKey()).append("=").append(param.getValue());
         }
         return new URL(urlBuilder.toString());
     }
@@ -53,6 +53,7 @@ public abstract class BaseClient {
         HttpURLConnection urlConnection = null;
         try {
             URL url = getUrl(connectionString, params);
+            LOG.info("Doing request to url: {} method: {}", url, mode);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod(mode.toString());
             urlConnection.setRequestProperty("Accept-Charset", "UTF-8");

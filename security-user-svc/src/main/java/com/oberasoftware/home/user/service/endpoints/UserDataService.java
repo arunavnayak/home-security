@@ -42,8 +42,10 @@ public class UserDataService {
     public ResponseEntity<?> addController(HttpServletRequest request, @RequestBody ControllerResourceModel controllerResource) {
         LOG.debug("Received a controller creation request: {}", controllerResource.getControllerId());
         String randomPassword = UUID.randomUUID().toString();
-        return ResponseEntity.ok(userService.createControllerUser(getUserId(request), controllerResource.getControllerId(),
-                randomPassword));
+        String userName = getUserId(request);
+        User user = userService.createControllerUser(userName, controllerResource.getControllerId(), randomPassword);
+
+        return ResponseEntity.ok(new CreateUserModel(userName, null, randomPassword, user.getRoles()));
     }
 
     private String getUserId(HttpServletRequest request) {

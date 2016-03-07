@@ -27,7 +27,7 @@ public class AuthClient extends BaseClient {
         clientParams.put("client_secret", clientSecret);
         clientParams.put("grant_type", "password");
 
-        ClientResponse response = doInternalRequest(getEndpointUrl(), clientParams, "".getBytes(), REQUEST_MODE.POST);
+        ClientResponse response = doInternalRequest("token", clientParams, "".getBytes(), REQUEST_MODE.POST);
         ObjectMapper mapper = new ObjectMapper();
 
         try {
@@ -51,15 +51,15 @@ public class AuthClient extends BaseClient {
         clientParams.put("client_id", clientId);
         clientParams.put("token", token);
 
-        ClientResponse response = doInternalRequest(getEndpointUrl(), clientParams, "".getBytes(), REQUEST_MODE.GET);
+        ClientResponse response = doInternalRequest("me", clientParams, null, REQUEST_MODE.GET);
         ObjectMapper mapper = new ObjectMapper();
 
         try {
             JsonNode rootNode = mapper.readValue(response.getEntityAsString(), JsonNode.class);
             if(!rootNode.has("error") && rootNode.has("userId")) {
-                String userId = rootNode.get("userId").asText();
-                String userName = rootNode.get("userName").asText();
-                String userMail = rootNode.get("userEmail").asText();
+                String userId = rootNode.has("userId") ? rootNode.get("userId").asText() : null;
+                String userName = rootNode.has("userName") ? rootNode.get("userName").asText() : clientId;
+                String userMail = rootNode.has("userEmail") ? rootNode.get("userEmail").asText() : null;
 
                 LOG.debug("Received a user with id: {} username: {}", userId, userName);
                 return new User(userId, userName, userMail);
