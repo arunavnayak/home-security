@@ -1,6 +1,7 @@
 package com.oberasoftware.home.security.jasdb;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.oberasoftware.home.api.exceptions.RuntimeHomeAutomationException;
 import com.oberasoftware.home.security.common.api.UserService;
 import com.oberasoftware.home.security.common.model.LocalUser;
@@ -17,9 +18,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 import static java.util.Optional.ofNullable;
 import static nl.renarj.jasdb.api.query.QueryBuilder.createBuilder;
@@ -56,7 +55,7 @@ public class JasDBUserService implements UserService {
     }
 
     @Override
-    public User updateUser(String userName, String password, String email, List<String> roles, List<String> controllers) {
+    public User updateUser(String userName, String password, String email, List<String> roles, Map<String, String> metadata) {
         LocalUser user = findInternalUser(userName);
         if(user != null) {
             if(StringUtils.stringNotEmpty(password)) {
@@ -75,23 +74,52 @@ public class JasDBUserService implements UserService {
                 user.setRoles(Lists.newArrayList(roles));
             }
 
-            if(!controllers.isEmpty()) {
-                user.setControllers(Lists.newArrayList(controllers));
+            if(!metadata.isEmpty()) {
+                user.setMetadata(Maps.newHashMap(metadata));
             }
 
-            try {
-                DBSession session = sessionFactory.createSession();
-                EntityManager entityManager = session.getEntityManager();
-                entityManager.persist(user);
-
-                return user;
-            } catch (JasDBStorageException e) {
-                LOG.error("Unable to store user", e);
-                throw new RuntimeHomeAutomationException("Unable to store user data", e);
-            }
+            return persist(user) ? user : null;
         } else {
             throw new RuntimeHomeAutomationException("Could not find user: " + userName + " to update");
         }
+    }
+
+    private boolean persist(LocalUser user) {
+        try {
+            DBSession session = sessionFactory.createSession();
+            EntityManager entityManager = session.getEntityManager();
+            entityManager.persist(user);
+
+            return true;
+        } catch (JasDBStorageException e) {
+            LOG.error("Unable to store user", e);
+            throw new RuntimeHomeAutomationException("Unable to store user data", e);
+        }
+    }
+
+    @Override
+    public User updateMetadata(String userName, Map<String, String> metadata) {
+        LocalUser localUser = findInternalUser(userName);
+        if(localUser != null) {
+            localUser.setMetadata(metadata);
+            return persist(localUser) ? localUser : null;
+        }
+
+        return null;
+    }
+
+    @Override
+    public User setMetadata(String userName, String key, String value) {
+        LocalUser localUser = findInternalUser(userName);
+        if(localUser != null) {
+            Map<String, String> metadata = new HashMap<>(localUser.getMetadata());
+            metadata.put(key, value);
+            localUser.setMetadata(metadata);
+
+            return persist(localUser) ? localUser : null;
+        }
+
+        return null;
     }
 
     @Override
@@ -140,26 +168,6 @@ public class JasDBUserService implements UserService {
 
     @Override
     public User updateRoles(String userName, List<String> roles) {
-        return null;
-    }
-
-    @Override
-    public User createControllerUser(String userName, String controllerId, String password) {
-        LocalUser controllerOwner = findInternalUser(userName);
-        if(controllerOwner != null) {
-            User controllerUser = createUser(controllerId, password, null, Lists.newArrayList("controller"));
-            controllerOwner.getControllers().add(controllerId);
-
-            try {
-                DBSession session = sessionFactory.createSession();
-                session.getEntityManager().persist(controllerOwner);
-
-                return controllerUser;
-            } catch (JasDBStorageException e) {
-                LOG.error("", e);
-            }
-        }
-
         return null;
     }
 }

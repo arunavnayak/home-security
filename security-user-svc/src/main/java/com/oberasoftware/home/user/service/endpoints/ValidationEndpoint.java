@@ -43,7 +43,7 @@ public class ValidationEndpoint {
 
             //wrap in a new response model to isolate sensitive fields
             return ResponseEntity.ok(new User(internalUser.getUserId(), internalUser.getUserName(), internalUser.getUserMail(),
-                    internalUser.getRoles(), internalUser.getControllers()));
+                    internalUser.getRoles(), internalUser.getMetadata()));
         } else {
             LOG.debug("The user: {} could not be found, valid token: {}", clientId, token);
             return sendResponse("unauthorized user");

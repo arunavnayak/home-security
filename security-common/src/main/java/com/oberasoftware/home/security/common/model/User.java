@@ -3,8 +3,9 @@ package com.oberasoftware.home.security.common.model;
 import com.oberasoftware.jasdb.api.entitymapper.annotations.Id;
 import com.oberasoftware.jasdb.api.entitymapper.annotations.JasDBProperty;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Renze de Vries
@@ -16,14 +17,14 @@ public class User {
 
     private List<String> roles;
 
-    private List<String> controllers = new ArrayList<>();
+    private Map<String, String> metadata = new HashMap<>();
 
-    public User(String userId, String userName, String userMail, List<String> roles, List<String> controllers) {
+    public User(String userId, String userName, String userMail, List<String> roles, Map<String, String> metadata) {
         this.userId = userId;
         this.userName = userName;
         this.userMail = userMail;
         this.roles = roles;
-        this.controllers = controllers;
+        this.metadata = metadata;
     }
 
     public User() {
@@ -58,16 +59,12 @@ public class User {
     }
 
     @JasDBProperty
-    public List<String> getControllers() {
-        return controllers;
+    public Map<String, String> getMetadata() {
+        return metadata;
     }
 
-    public void setControllers(List<String> controllers) {
-        this.controllers = controllers;
-    }
-
-    public void addController(String controllerId) {
-        this.controllers.add(controllerId);
+    public void setMetadata(Map<String, String> metadata) {
+        this.metadata = metadata;
     }
 
     @JasDBProperty

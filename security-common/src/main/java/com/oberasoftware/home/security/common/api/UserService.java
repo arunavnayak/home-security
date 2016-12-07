@@ -3,6 +3,7 @@ package com.oberasoftware.home.security.common.api;
 import com.oberasoftware.home.security.common.model.User;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -11,11 +12,13 @@ import java.util.Optional;
 public interface UserService {
     User createUser(String userName, String password, String email, List<String> roles);
 
-    User updateUser(String userName, String password, String email, List<String> roles, List<String> controllers);
+    User updateUser(String userName, String password, String email, List<String> roles, Map<String, String> metadata);
+
+    User updateMetadata(String userName, Map<String, String> metadata);
+
+    User setMetadata(String userName, String key, String value);
 
     User updateRoles(String userName, List<String> roles);
-
-    User createControllerUser(String userName, String controllerId, String password);
 
     Optional<User> findUser(String clientId);
 
